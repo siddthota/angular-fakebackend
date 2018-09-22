@@ -1,0 +1,19 @@
+<div class="container">
+  <h1>Home Page</h1>
+    <p *ngIf="authService.isLoggedIn() && authService.currentUser.admin">
+        Welcome to {{authService.currentUser.name}}!
+    </p>
+
+      <ul>
+        <li *ngIf="authService.isLoggedIn() && authService.currentUser.admin"><a routerLink="/admin">Admin</a></li>
+        <li *ngIf="!authService.isLoggedIn()"><a routerLink="/login">Login</a></li>
+        <li *ngIf="authService.isLoggedIn()"><a style="cursor: pointer;" (click)="authService.logout()">logout</a></li>
+      </ul>
+
+      <ul *ngIf="authService.isLoggedIn()">
+        <li *ngFor="let archive of archives">
+            <a [routerLink]="['/archive', archive.year, archive.month]">
+            {{archive.year + '/' + archive.month}}</a>
+        </li>
+      </ul>
+</div>
